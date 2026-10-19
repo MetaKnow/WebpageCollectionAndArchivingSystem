@@ -1,6 +1,7 @@
 ---
 name: missoft-frontend-design
 description: 为 missoft / 网页采集归档类 Angular 中后台项目做前端设计与实现时使用。优先使用私有 ng-shared 组件库（app-table / StepHandler / 弹窗 / 图表），遵循 Ant Design 设计规范，用 NG-ZORRO 落地，ui-ux-pro-max 仅在缺口时兜底。触发词：前端设计、页面设计、后台界面、Angular 页面、NG-ZORRO、ng-shared、app-table、Ant Design、管理后台、列表页、详情页、表单页、弹窗、抽屉、原型设计、UI 评审。
+disable-model-invocation: true
 ---
 
 # Missoft 前端设计

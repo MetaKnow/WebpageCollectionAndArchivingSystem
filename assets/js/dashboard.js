@@ -96,43 +96,6 @@
     );
   }
 
-  function trendLegend() {
-    return (
-      '<div class="legend">' +
-      '<span class="legend-item"><span class="legend-dot" style="--legend-color:var(--chart-collect)"></span>采集（条）</span>' +
-      '<span class="legend-item"><span class="legend-dot" style="--legend-color:var(--chart-archive)"></span>归档（件）</span>' +
-      "</div>"
-    );
-  }
-
-  function todoList(todos) {
-    if (!todos || !todos.length) return "";
-    return (
-      '<div class="todo-list">' +
-      todos
-        .map(function (t) {
-          return (
-            '<div class="todo-item"><a href="' +
-            esc(t.href) +
-            '">' +
-            '<svg class="icon icon--sm" aria-hidden="true"><use href="#icon-' +
-            esc(t.icon) +
-            '"/></svg>' +
-            '<span class="todo-label">' +
-            esc(t.label) +
-            "</span>" +
-            '<span class="todo-value">' +
-            esc(t.value) +
-            "</span>" +
-            '<svg class="icon icon--sm" aria-hidden="true"><use href="#icon-chevron-right"/></svg>' +
-            "</a></div>"
-          );
-        })
-        .join("") +
-      "</div>"
-    );
-  }
-
   function render(main, session) {
     var data = WCR.DASHBOARD[session.roleId] || WCR.DASHBOARD["archive-staff"];
 
@@ -184,57 +147,11 @@
       "</div>" +
       "</div>" +
       "</div>" +
-      '<div class="dash-widget dash-widget--wide">' +
-      '<div class="card chart-card">' +
-      '<div class="card-head"><div><h2>采集与归档趋势</h2>' +
-      "<p>近 12 个月 · 单位：条 / 件</p></div></div>" +
-      trendLegend() +
-      '<div class="chart-scroll" id="trendChart"></div>' +
-      '<p class="chart-scroll-hint">左右滑动查看完整图表</p>' +
-      '<p class="chart-note">按采集时间统计当月新增数量；2026 年 10 月为截至 18 日的部分月份。</p>' +
-      "</div>" +
-      "</div>" +
-      '<div class="dash-widget dash-widget--side">' +
-      '<div class="card chart-card overview-card">' +
-      '<div class="card-head"><div><h2>归档概览</h2>' +
-      "<p>本年度 · " +
-      esc(data.scopeLabel) +
-      "</p></div></div>" +
-      '<div class="metric">' +
-      '<div class="metric-head"><span>本年归档完成度</span><strong>' +
-      data.overview.archiveRate +
-      "%</strong></div>" +
-      '<div class="progress" role="progressbar" aria-label="本年归档完成度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' +
-      data.overview.archiveRate +
-      '"><span style="width:' +
-      data.overview.archiveRate +
-      '%"></span></div>' +
-      '<p class="metric-sub">' +
-      esc(data.overview.archiveRateSub) +
-      "</p>" +
-      "</div>" +
-      '<div class="metric">' +
-      '<div class="metric-head"><span>四性检测通过率</span><strong>' +
-      data.overview.qualityRate +
-      "%</strong></div>" +
-      '<div class="progress progress--success" role="progressbar" aria-label="四性检测通过率" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' +
-      data.overview.qualityRate +
-      '"><span style="width:' +
-      data.overview.qualityRate +
-      '%"></span></div>' +
-      '<p class="metric-sub">' +
-      esc(data.overview.qualityRateSub) +
-      "</p>" +
-      "</div>" +
-      todoList(data.overview.todos) +
-      "</div>" +
-      "</div>" +
       "</section>" +
       '<p class="page-footnote">统计口径：采集按“条”计，归档按“件”计；归档率 = 已归档件数 ÷ 采集网页条数（同一统计范围）。本页数据为原型示例数据，非真实采集结果。</p>';
 
     var barChart = document.getElementById("barChart");
     var barSub = document.getElementById("barSub");
-    var trendChart = document.getElementById("trendChart");
     var donutChart = document.getElementById("donutChart");
     var grid = document.getElementById("dashGrid");
     var refreshBtn = document.getElementById("dashRefresh");
@@ -258,7 +175,6 @@
 
     paintBars("site");
     WCR.charts.donut(donutChart, data.categories);
-    WCR.charts.trend(trendChart, data.trend);
 
     var tabs = [document.getElementById("tabSite"), document.getElementById("tabColumn")];
 

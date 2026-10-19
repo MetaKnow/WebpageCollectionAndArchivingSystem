@@ -289,7 +289,7 @@
   var BLANK_SYSTEM_PAGES = ["dict", "quality", "storage", "backup", "logs"];
 
   function renderView(info) {
-    ["sites", "users", "roles", "metadata", "categories", "scope"].forEach(function (key) {
+    ["sites", "users", "roles", "metadata", "categories", "scope", "tasks", "collect", "transfer", "archiveLibrary", "stats"].forEach(function (key) {
       if (WCR[key] && WCR[key].destroy) WCR[key].destroy();
     });
     els.main.innerHTML = "";
@@ -298,6 +298,34 @@
         WCR.dashboard.render(els.main, state.session);
       }
       document.title = "工作台 · 网页采集归档系统";
+      return;
+    }
+    if (info.type === "module" && info.key === "collect" && WCR.collect) {
+      WCR.collect.render(els.main, state.session);
+      document.title = "收集整理 · 网页采集归档系统";
+      return;
+    }
+    if (info.type === "module" && info.key === "transfer" && WCR.transfer) {
+      WCR.transfer.render(els.main, state.session);
+      document.title = "移交审核 · 网页采集归档系统";
+      return;
+    }
+    if (info.type === "module" && info.key === "search") {
+      els.main.innerHTML =
+        '<div class="module-note-page">' +
+        '<p class="module-note">与标准系统的目录检索和全文检索一致，不需要借阅申请。网站主办单位管理员和网站主办单位档案员只能查询到本单位的网站数据，档案馆工作人员可以查询到所有数据。</p>' +
+        "</div>";
+      document.title = "检索利用 · 网页采集归档系统";
+      return;
+    }
+    if (info.type === "module" && info.key === "archive" && WCR.archiveLibrary) {
+      WCR.archiveLibrary.render(els.main, state.session);
+      document.title = "网页档案 · 网页采集归档系统";
+      return;
+    }
+    if (info.type === "module" && info.key === "statistics" && WCR.stats) {
+      WCR.stats.render(els.main, state.session);
+      document.title = "档案统计 · 网页采集归档系统";
       return;
     }
     if (
@@ -336,6 +364,15 @@
     ) {
       WCR.categories.render(els.main, state.session);
       document.title = "分类库维护 · 网页采集归档系统";
+      return;
+    }
+    if (
+      info.type === "system" &&
+      info.childKey === "tasks" &&
+      WCR.tasks
+    ) {
+      WCR.tasks.render(els.main, state.session);
+      document.title = "任务管理 · 网页采集归档系统";
       return;
     }
     if (

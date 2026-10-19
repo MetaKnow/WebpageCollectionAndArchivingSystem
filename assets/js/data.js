@@ -64,7 +64,7 @@
         scope: "本单位网站",
         scopeDetail: "示例市大数据管理局 · 4 个网站"
       },
-      menus: ["workbench", "sites", "users"]
+      menus: ["workbench", "search", "sites", "users"]
     },
     "site-clerk": {
       id: "site-clerk",
@@ -254,6 +254,19 @@
         planned: ["分类树维护", "分类代码与名称", "与归档范围关联", "档号规则预览"]
       },
       {
+        key: "tasks",
+        title: "任务管理",
+        icon: "clock",
+        hash: "#/system/tasks",
+        desc: "管理采集任务的执行时间、周期与启停，支持手动立即执行。",
+        planned: [
+          "采集任务新建、修改与删除",
+          "执行时间与周期配置",
+          "启动、停止与手动执行",
+          "自动调度与执行状态"
+        ]
+      },
+      {
         key: "scope",
         title: "归档范围",
         icon: "file-text",
@@ -349,8 +362,8 @@
         builtin: true,
         status: "active",
         scope: "own",
-        desc: "维护本单位网站、栏目与用户，查看本单位采集与归档情况。",
-        menus: ["workbench", "sites", "users"]
+        desc: "维护本单位网站、栏目与用户，可查询本单位网页档案。",
+        menus: ["workbench", "search", "sites", "users"]
       },
       {
         id: "site-clerk",

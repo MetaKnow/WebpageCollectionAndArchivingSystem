@@ -24,6 +24,7 @@
     { key: "name", label: "名称规则" },
     { key: "category", label: "分类规则" },
     { key: "report", label: "报表规则" },
+    { key: "archive", label: "归档规则" },
     { key: "storage", label: "存储规则" },
     { key: "serial", label: "流水号规则" },
     { key: "keyword", label: "关键字规则" },
@@ -1173,5 +1174,15 @@
   }
 
   global.WCR = global.WCR || {};
-  global.WCR.metadata = { render: render, destroy: destroy };
+  global.WCR.metadata = {
+    render: render,
+    destroy: destroy,
+    getFields: function (tabKey) {
+      ensureStore();
+      var list = store[tabKey || "collection"] || [];
+      return list.map(function (field) {
+        return JSON.parse(JSON.stringify(field));
+      });
+    }
+  };
 })(window);
