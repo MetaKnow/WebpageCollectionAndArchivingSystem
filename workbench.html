@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>工作台 · 网页采集归档系统</title>
+    <meta
+      name="description"
+      content="网页采集归档系统工作台原型（PROTOTYPE — 非生产实现）"
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231677ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='3' width='20' height='5' rx='1'/%3E%3Cpath d='M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8M10 12h4'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="assets/css/tokens.css" />
+    <link rel="stylesheet" href="assets/css/base.css" />
+    <link rel="stylesheet" href="assets/css/components.css" />
+    <link rel="stylesheet" href="assets/css/layout.css" />
+    <link rel="stylesheet" href="assets/css/pages.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main" data-skip>跳到主内容</a>
+
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+      <defs>
+        <symbol id="icon-archive" viewBox="0 0 24 24">
+          <rect x="2" y="3" width="20" height="5" rx="1" />
+          <path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8" />
+          <path d="M10 12h4" />
+        </symbol>
+        <symbol id="icon-dashboard" viewBox="0 0 24 24">
+          <rect x="3" y="3" width="7" height="7" rx="1" />
+          <rect x="14" y="3" width="7" height="7" rx="1" />
+          <rect x="14" y="14" width="7" height="7" rx="1" />
+          <rect x="3" y="14" width="7" height="7" rx="1" />
+        </symbol>
+        <symbol id="icon-inbox" viewBox="0 0 24 24">
+          <path d="M6 4h12l2 9v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-5l2-9z" />
+          <path d="M4 13h4l1.5 3h5L16 13h4" />
+        </symbol>
+        <symbol id="icon-send" viewBox="0 0 24 24">
+          <path d="m3 11 18-8-8 18-2-8-8-2z" />
+        </symbol>
+        <symbol id="icon-search" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="7" />
+          <path d="m20 20-3.5-3.5" />
+        </symbol>
+        <symbol id="icon-bar-chart" viewBox="0 0 24 24">
+          <path d="M5 20V11" />
+          <path d="M12 20V4" />
+          <path d="M19 20v-6" />
+          <path d="M3 20h18" />
+        </symbol>
+        <symbol id="icon-settings" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="3" />
+          <path
+            d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"
+          />
+        </symbol>
+        <symbol id="icon-globe" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M3 12h18" />
+          <path d="M12 3c5 5 5 13 0 18-5-5-5-13 0-18z" />
+        </symbol>
+        <symbol id="icon-layout-grid" viewBox="0 0 24 24">
+          <rect x="3" y="3" width="8" height="8" rx="1.5" />
+          <rect x="13" y="3" width="8" height="8" rx="1.5" />
+          <rect x="3" y="13" width="8" height="8" rx="1.5" />
+          <rect x="13" y="13" width="8" height="8" rx="1.5" />
+        </symbol>
+        <symbol id="icon-file-text" viewBox="0 0 24 24">
+          <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5z" />
+          <path d="M14 3v5h5" />
+          <path d="M9 13h6M9 17h4" />
+        </symbol>
+        <symbol id="icon-folder" viewBox="0 0 24 24">
+          <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z" />
+        </symbol>
+        <symbol id="icon-user" viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="4" />
+          <path d="M4 21a8 8 0 0 1 16 0" />
+        </symbol>
+        <symbol id="icon-shield-check" viewBox="0 0 24 24">
+          <path d="m12 3 7 3v6c0 4.4-3 7.8-7 9-4-1.2-7-4.6-7-9V6l7-3z" />
+          <path d="m9 12 2 2 4-4" />
+        </symbol>
+        <symbol id="icon-layers" viewBox="0 0 24 24">
+          <path d="m12 3 9 5-9 5-9-5 9-5z" />
+          <path d="m3 13 9 5 9-5" />
+        </symbol>
+        <symbol id="icon-book-open" viewBox="0 0 24 24">
+          <path d="M12 6c-1.5-1.5-4-2-6-2v14c2 0 4.5.5 6 2 1.5-1.5 4-2 6-2V4c-2 0-4.5.5-6 2z" />
+          <path d="M12 6v14" />
+        </symbol>
+        <symbol id="icon-check-circle" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" />
+          <path d="m8.5 12 2.5 2.5 4.5-5" />
+        </symbol>
+        <symbol id="icon-database" viewBox="0 0 24 24">
+          <ellipse cx="12" cy="5.5" rx="8" ry="3" />
+          <path d="M4 5.5v13c0 1.7 3.6 3 8 3s8-1.3 8-3v-13" />
+          <path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3" />
+        </symbol>
+        <symbol id="icon-clock" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 7v5l3 2" />
+        </symbol>
+        <symbol id="icon-refresh" viewBox="0 0 24 24">
+          <path d="M21 12a9 9 0 1 1-3-6.7" />
+          <path d="M21 3v6h-6" />
+        </symbol>
+        <symbol id="icon-menu" viewBox="0 0 24 24">
+          <path d="M4 6h16M4 12h16M4 18h16" />
+        </symbol>
+        <symbol id="icon-bell" viewBox="0 0 24 24">
+          <path d="M18 9a6 6 0 0 0-12 0c0 5-2 6-2 6h16s-2-1-2-6z" />
+          <path d="M10.5 20a2 2 0 0 0 3 0" />
+        </symbol>
+        <symbol id="icon-chevron-down" viewBox="0 0 24 24">
+          <path d="m6 9 6 6 6-6" />
+        </symbol>
+        <symbol id="icon-chevron-right" viewBox="0 0 24 24">
+          <path d="m9 6 6 6-6 6" />
+        </symbol>
+        <symbol id="icon-upload" viewBox="0 0 24 24">
+          <path d="M12 16V4" />
+          <path d="m6 10 6-6 6 6" />
+          <path d="M4 20h16" />
+        </symbol>
+        <symbol id="icon-download" viewBox="0 0 24 24">
+          <path d="M12 4v12" />
+          <path d="m6 10 6 6 6-6" />
+          <path d="M4 20h16" />
+        </symbol>
+        <symbol id="icon-arrow-up" viewBox="0 0 24 24">
+          <path d="M12 19V5" />
+          <path d="m5 12 7-7 7 7" />
+        </symbol>
+        <symbol id="icon-arrow-down" viewBox="0 0 24 24">
+          <path d="M12 5v14" />
+          <path d="m19 12-7 7-7-7" />
+        </symbol>
+        <symbol id="icon-log-out" viewBox="0 0 24 24">
+          <path d="M9 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h3" />
+          <path d="m15 8 4 4-4 4" />
+          <path d="M19 12H9" />
+        </symbol>
+        <symbol id="icon-x" viewBox="0 0 24 24">
+          <path d="M6 6l12 12M18 6 6 18" />
+        </symbol>
+        <symbol id="icon-info" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 11v6" />
+          <path d="M12 7.5v.1" />
+        </symbol>
+        <symbol id="icon-pencil" viewBox="0 0 24 24">
+          <path d="M12 20h9" />
+          <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
+        </symbol>
+        <symbol id="icon-help-circle" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-2.9 3-2.9 3" />
+          <path d="M12 17h.01" />
+        </symbol>
+        <symbol id="icon-plus" viewBox="0 0 24 24">
+          <path d="M12 5v14M5 12h14" />
+        </symbol>
+        <symbol id="icon-trash" viewBox="0 0 24 24">
+          <path d="M3 6h18" />
+          <path d="M8 6V4h8v2" />
+          <path d="M19 6l-1 14H6L5 6" />
+          <path d="M10 11v6M14 11v6" />
+        </symbol>
+        <symbol id="icon-external-link" viewBox="0 0 24 24">
+          <path d="M15 3h6v6" />
+          <path d="M10 14 21 3" />
+          <path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5" />
+        </symbol>
+        <symbol id="icon-alert-triangle" viewBox="0 0 24 24">
+          <path d="M12 3 2.5 20h19L12 3z" />
+          <path d="M12 9v5" />
+          <path d="M12 17.2v.1" />
+        </symbol>
+        <symbol id="icon-trending-up" viewBox="0 0 24 24">
+          <path d="m3 17 6-6 4 4 8-8" />
+          <path d="M15 7h6v6" />
+        </symbol>
+        <symbol id="icon-image" viewBox="0 0 24 24">
+          <rect x="3" y="4" width="18" height="16" rx="2" />
+          <circle cx="9" cy="10" r="2" />
+          <path d="m4 18 5-5 3 3 3-3 5 5" />
+        </symbol>
+        <symbol id="icon-music" viewBox="0 0 24 24">
+          <path d="M9 18V6l10-2v12" />
+          <circle cx="6.5" cy="18" r="2.5" />
+          <circle cx="16.5" cy="16" r="2.5" />
+        </symbol>
+        <symbol id="icon-video" viewBox="0 0 24 24">
+          <rect x="3" y="6" width="12" height="12" rx="2" />
+          <path d="m15 10 6-3v10l-6-3" />
+        </symbol>
+        <symbol id="icon-check" viewBox="0 0 24 24">
+          <path d="M20 6 9 17l-5-5" />
+        </symbol>
+        <symbol id="art-module" viewBox="0 0 168 120">
+          <rect
+            x="1"
+            y="10"
+            width="166"
+            height="100"
+            rx="14"
+            fill="var(--color-surface-container)"
+            stroke="currentColor"
+            stroke-width="1.2"
+            stroke-dasharray="5 6"
+            opacity=".85"
+          />
+          <rect x="26" y="32" width="52" height="8" rx="4" fill="currentColor" opacity=".16" />
+          <rect x="26" y="48" width="34" height="8" rx="4" fill="currentColor" opacity=".1" />
+          <circle
+            cx="118"
+            cy="44"
+            r="14"
+            fill="var(--color-surface)"
+            stroke="currentColor"
+            stroke-width="1.2"
+            stroke-dasharray="4 4"
+          />
+          <path
+            d="M112 44h12M118 38v12"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            opacity=".7"
+          />
+          <rect x="26" y="72" width="116" height="1" fill="currentColor" opacity=".14" />
+          <rect x="26" y="84" width="88" height="8" rx="4" fill="currentColor" opacity=".1" />
+          <rect x="120" y="84" width="22" height="8" rx="4" fill="currentColor" opacity=".16" />
+        </symbol>
+      </defs>
+    </svg>
+
+    <noscript>
+      <p class="noscript-note">
+        本原型依赖 JavaScript 渲染界面与路由，请启用 JavaScript 后刷新页面。
+      </p>
+    </noscript>
+
+    <div class="app-shell" id="appShell">
+      <aside class="sider" id="sider" aria-label="主导航">
+        <a class="sider-brand" href="#/workbench">
+          <span class="brand-mark" aria-hidden="true">
+            <svg class="icon"><use href="#icon-archive" /></svg>
+          </span>
+          <span class="brand-name">
+            <strong>网页采集归档系统</strong>
+            <span>WEB ARCHIVE</span>
+          </span>
+        </a>
+        <nav class="sider-nav" id="siderNav" aria-label="功能菜单"></nav>
+        <div class="sider-foot">
+          <p class="proto-note">
+            <strong>原型范围</strong><br />
+            已完成登录、工作台与核心系统页；其余模块留空，数据均为示例。
+          </p>
+          <p class="sider-version">原型 v0.1 · DA/T 80-2019</p>
+        </div>
+      </aside>
+
+      <div class="sider-mask" id="siderMask" aria-hidden="true"></div>
+
+      <div class="main">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button
+              type="button"
+              class="icon-btn sider-toggle"
+              id="siderToggle"
+              aria-label="打开导航"
+              aria-expanded="false"
+              aria-controls="sider"
+            >
+              <svg class="icon" aria-hidden="true"><use href="#icon-menu" /></svg>
+            </button>
+            <nav class="breadcrumb" id="breadcrumb" aria-label="面包屑导航">
+              <a href="#/workbench">首页</a>
+              <span class="sep" aria-hidden="true">/</span>
+              <span class="current">工作台</span>
+            </nav>
+          </div>
+
+          <div class="topbar-right">
+            <div class="role-switch" title="原型演示用：正式系统中角色由登录账号决定">
+              <span>原型视角</span>
+              <div class="select-wrap">
+                <select class="select" id="roleSelect" aria-label="切换演示角色"></select>
+                <svg class="icon icon--sm" aria-hidden="true">
+                  <use href="#icon-chevron-down" />
+                </svg>
+              </div>
+            </div>
+
+            <div class="dropdown" data-dropdown>
+              <button
+                type="button"
+                class="icon-btn"
+                id="noticeBtn"
+                data-dd-trigger
+                aria-label="通知，3 条未读"
+                aria-expanded="false"
+                aria-haspopup="true"
+              >
+                <svg class="icon" aria-hidden="true"><use href="#icon-bell" /></svg>
+                <span class="badge">3</span>
+              </button>
+              <div
+                class="dropdown-panel dropdown-panel--wide"
+                id="noticePanel"
+                role="dialog"
+                aria-label="通知列表"
+                hidden
+              >
+                <div class="dropdown-title">
+                  <span>通知</span>
+                  <span id="noticeCount">3 条未读</span>
+                </div>
+                <div class="notice-item">
+                  <svg class="icon" aria-hidden="true"><use href="#icon-send" /></svg>
+                  <div>
+                    <strong>2 个移交批次待审核</strong>
+                    <span>示例市大数据管理局 · 10 分钟前</span>
+                  </div>
+                </div>
+                <div class="notice-item">
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#icon-alert-triangle" />
+                  </svg>
+                  <div>
+                    <strong>1 个批次四性检测未通过</strong>
+                    <span>市生态环境局 · 2 小时前</span>
+                  </div>
+                </div>
+                <div class="notice-item">
+                  <svg class="icon" aria-hidden="true"><use href="#icon-database" /></svg>
+                  <div>
+                    <strong>档案存储空间使用率 82%</strong>
+                    <span>系统提醒 · 今天 08:00</span>
+                  </div>
+                </div>
+                <div class="dropdown-divider"></div>
+                <button type="button" class="dropdown-item" id="noticeAll">
+                  <svg class="icon" aria-hidden="true"><use href="#icon-check" /></svg>
+                  全部标记为已读
+                </button>
+              </div>
+            </div>
+
+            <div class="dropdown" data-dropdown>
+              <button
+                type="button"
+                class="user-trigger"
+                id="userBtn"
+                data-dd-trigger
+                aria-label="账号菜单"
+                aria-expanded="false"
+                aria-haspopup="true"
+              >
+                <span class="avatar" id="userAvatar">张</span>
+                <span class="user-meta">
+                  <strong id="userName">张明</strong>
+                  <small id="userOrg">示例市国家综合档案馆</small>
+                </span>
+                <svg class="icon icon--sm" aria-hidden="true">
+                  <use href="#icon-chevron-down" />
+                </svg>
+              </button>
+              <div class="dropdown-panel" id="userPanel" role="dialog" aria-label="账号信息" hidden>
+                <div class="user-card">
+                  <span class="avatar" id="panelAvatar">张</span>
+                  <span class="user-meta">
+                    <strong id="panelName">张明</strong>
+                    <small id="panelOrg">示例市国家综合档案馆</small>
+                  </span>
+                </div>
+                <div class="dropdown-divider"></div>
+                <div class="dropdown-title"><span>当前角色</span></div>
+                <p class="panel-role" id="panelRole">档案馆工作人员 · 全部网站</p>
+                <div class="dropdown-divider"></div>
+                <button
+                  type="button"
+                  class="dropdown-item"
+                  aria-disabled="true"
+                  disabled
+                >
+                  <svg class="icon" aria-hidden="true"><use href="#icon-user" /></svg>
+                  个人信息（原型未实现）
+                </button>
+                <button type="button" class="dropdown-item" id="logoutBtn">
+                  <svg class="icon" aria-hidden="true"><use href="#icon-log-out" /></svg>
+                  退出登录
+                </button>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <main class="page" id="main" tabindex="-1">
+          <p class="route-loading">正在加载原型页面…</p>
+        </main>
+      </div>
+    </div>
+
+    <div class="toast-stack" id="toastStack" aria-live="polite"></div>
+
+    <script src="assets/js/data.js" defer></script>
+    <script src="assets/js/charts.js" defer></script>
+    <script src="assets/js/dashboard.js" defer></script>
+    <script src="assets/js/params.js" defer></script>
+    <script src="assets/js/sites.js" defer></script>
+    <script src="assets/js/users.js" defer></script>
+    <script src="assets/js/roles.js" defer></script>
+    <script src="assets/js/metadata.js" defer></script>
+    <script src="assets/js/categories.js" defer></script>
+    <script src="assets/js/scope.js" defer></script>
+    <script src="assets/js/app.js" defer></script>
+  </body>
+</html>

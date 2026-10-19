@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>登录 · 网页采集归档系统</title>
+    <meta
+      name="description"
+      content="网页采集归档系统登录页原型（PROTOTYPE — 非生产实现）"
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231677ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='3' width='20' height='5' rx='1'/%3E%3Cpath d='M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8M10 12h4'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="assets/css/tokens.css" />
+    <link rel="stylesheet" href="assets/css/base.css" />
+    <link rel="stylesheet" href="assets/css/components.css" />
+    <link rel="stylesheet" href="assets/css/layout.css" />
+    <link rel="stylesheet" href="assets/css/pages.css" />
+  </head>
+  <body class="login-page">
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+      <defs>
+        <symbol id="icon-archive" viewBox="0 0 24 24">
+          <rect x="2" y="3" width="20" height="5" rx="1" />
+          <path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8" />
+          <path d="M10 12h4" />
+        </symbol>
+        <symbol id="icon-user" viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="4" />
+          <path d="M4 21a8 8 0 0 1 16 0" />
+        </symbol>
+        <symbol id="icon-lock" viewBox="0 0 24 24">
+          <rect x="4" y="10" width="16" height="11" rx="2" />
+          <path d="M8 10V7a4 4 0 1 1 8 0v3" />
+        </symbol>
+        <symbol id="icon-eye" viewBox="0 0 24 24">
+          <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" />
+          <circle cx="12" cy="12" r="3" />
+        </symbol>
+        <symbol id="icon-eye-off" viewBox="0 0 24 24">
+          <path d="m3 3 18 18" />
+          <path d="M10.6 6.2A10.9 10.9 0 0 1 12 5c6.5 0 10 7 10 7a17 17 0 0 1-3 3.8" />
+          <path d="M6.1 6.6A17 17 0 0 0 2 12s3.5 7 10 7a10.8 10.8 0 0 0 4.9-1.2" />
+          <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2" />
+        </symbol>
+        <symbol id="icon-check" viewBox="0 0 24 24">
+          <path d="M20 6 9 17l-5-5" />
+        </symbol>
+        <symbol id="icon-shield-check" viewBox="0 0 24 24">
+          <path d="m12 3 7 3v6c0 4.4-3 7.8-7 9-4-1.2-7-4.6-7-9V6l7-3z" />
+          <path d="m9 12 2 2 4-4" />
+        </symbol>
+        <symbol id="icon-globe" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M3 12h18" />
+          <path d="M12 3c5 5 5 13 0 18-5-5-5-13 0-18z" />
+        </symbol>
+        <symbol id="icon-database" viewBox="0 0 24 24">
+          <ellipse cx="12" cy="5.5" rx="8" ry="3" />
+          <path d="M4 5.5v13c0 1.7 3.6 3 8 3s8-1.3 8-3v-13" />
+          <path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3" />
+        </symbol>
+        <symbol id="icon-chevron-right" viewBox="0 0 24 24">
+          <path d="m9 6 6 6-6 6" />
+        </symbol>
+        <symbol id="icon-chevron-down" viewBox="0 0 24 24">
+          <path d="m6 9 6 6 6-6" />
+        </symbol>
+        <symbol id="icon-alert-triangle" viewBox="0 0 24 24">
+          <path d="M12 3 2.5 20h19L12 3z" />
+          <path d="M12 9v5" />
+          <path d="M12 17.2v.1" />
+        </symbol>
+        <symbol id="icon-info" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 11v6" />
+          <path d="M12 7.5v.1" />
+        </symbol>
+        <symbol id="icon-refresh" viewBox="0 0 24 24">
+          <path d="M21 12a9 9 0 1 1-3-6.7" />
+          <path d="M21 3v6h-6" />
+        </symbol>
+      </defs>
+    </svg>
+
+    <main class="login-shell">
+      <section class="login-brand" aria-labelledby="brandHeadline">
+        <div class="brand-lockup">
+          <span class="brand-mark" aria-hidden="true">
+            <svg class="icon"><use href="#icon-archive" /></svg>
+          </span>
+          <span class="brand-name">
+            <strong>网页采集归档系统</strong>
+            <span>WEB ARCHIVE SYSTEM</span>
+          </span>
+        </div>
+
+        <div class="brand-copy">
+          <p class="brand-eyebrow">
+            <span class="dot" aria-hidden="true"></span>
+            DA/T 80-2019 · 网页归档
+          </p>
+          <h2 class="brand-headline" id="brandHeadline">
+            让每一次网页发布，<br />都成为可长期保存的<em>档案</em>。
+          </h2>
+          <p class="brand-lead">
+            面向各级国家综合档案馆，采集本级政府网站及部门网站的网页元数据与版式文件，
+            经整理、四性检测与移交审核后归档入库，实现网页信息的长久保存与可信利用。
+          </p>
+          <ul class="brand-features">
+            <li>
+              <svg class="icon" aria-hidden="true"><use href="#icon-check" /></svg>
+              网页结构化采集
+            </li>
+            <li>
+              <svg class="icon" aria-hidden="true"><use href="#icon-check" /></svg>
+              OFD 版式归档
+            </li>
+            <li>
+              <svg class="icon" aria-hidden="true"><use href="#icon-check" /></svg>
+              四性检测留痕
+            </li>
+          </ul>
+        </div>
+
+        <div class="brand-art" aria-hidden="true">
+          <svg viewBox="0 0 620 280" role="img" aria-label="网页采集后经元数据封装与四性检测归档的示意">
+            <defs>
+              <linearGradient id="artPaper" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="rgba(255,255,255,.15)" />
+                <stop offset="1" stop-color="rgba(255,255,255,.04)" />
+              </linearGradient>
+            </defs>
+
+            <g>
+              <rect
+                x="16"
+                y="52"
+                width="248"
+                height="164"
+                rx="14"
+                fill="url(#artPaper)"
+                stroke="rgba(255,255,255,.26)"
+              />
+              <path d="M16 88h248" stroke="rgba(255,255,255,.16)" />
+              <circle cx="38" cy="70" r="3.5" fill="#69b1ff" />
+              <circle cx="52" cy="70" r="3.5" fill="rgba(255,255,255,.32)" />
+              <circle cx="66" cy="70" r="3.5" fill="rgba(255,255,255,.18)" />
+              <rect x="36" y="104" width="96" height="9" rx="4.5" fill="rgba(255,255,255,.5)" />
+              <rect x="36" y="124" width="196" height="7" rx="3.5" fill="rgba(255,255,255,.18)" />
+              <rect x="36" y="140" width="172" height="7" rx="3.5" fill="rgba(255,255,255,.14)" />
+              <rect x="36" y="156" width="120" height="7" rx="3.5" fill="rgba(255,255,255,.1)" />
+              <rect
+                x="36"
+                y="176"
+                width="56"
+                height="20"
+                rx="6"
+                fill="rgba(22,119,255,.4)"
+                stroke="rgba(105,177,255,.65)"
+              />
+              <rect
+                x="196"
+                y="172"
+                width="52"
+                height="28"
+                rx="6"
+                fill="rgba(19,194,194,.24)"
+                stroke="rgba(19,194,194,.48)"
+              />
+            </g>
+
+            <path
+              d="M286 132c42 0 48 34 86 34"
+              fill="none"
+              stroke="rgba(105,177,255,.7)"
+              stroke-width="1.6"
+              stroke-dasharray="5 6"
+            />
+            <path
+              d="m362 158 11 8-11 7"
+              fill="none"
+              stroke="rgba(105,177,255,.85)"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+
+            <g>
+              <rect
+                x="392"
+                y="86"
+                width="196"
+                height="128"
+                rx="12"
+                fill="rgba(255,255,255,.06)"
+                stroke="rgba(255,255,255,.28)"
+              />
+              <rect
+                x="382"
+                y="74"
+                width="216"
+                height="26"
+                rx="8"
+                fill="rgba(255,255,255,.15)"
+                stroke="rgba(255,255,255,.32)"
+              />
+              <rect
+                x="404"
+                y="120"
+                width="172"
+                height="58"
+                rx="8"
+                fill="rgba(8,24,44,.55)"
+                stroke="rgba(255,255,255,.16)"
+              />
+              <rect x="404" y="120" width="4" height="58" fill="#1677ff" />
+              <text x="422" y="144" fill="rgba(255,255,255,.82)" font-size="12">
+                OFD · 网页版式文件
+              </text>
+              <text x="422" y="163" fill="rgba(255,255,255,.45)" font-size="11">
+                元数据 · 四性检测 · 封装
+              </text>
+              <rect
+                x="512"
+                y="194"
+                width="88"
+                height="26"
+                rx="13"
+                fill="rgba(82,196,26,.2)"
+                stroke="rgba(82,196,26,.5)"
+              />
+              <text x="528" y="212" fill="#b7eb8f" font-size="11">已归档</text>
+            </g>
+
+            <g>
+              <rect
+                x="298"
+                y="36"
+                width="136"
+                height="30"
+                rx="15"
+                fill="rgba(255,255,255,.1)"
+                stroke="rgba(255,255,255,.2)"
+              />
+              <circle cx="318" cy="51" r="3" fill="#13c2c2" />
+              <text x="330" y="55" fill="rgba(255,255,255,.72)" font-size="12">
+                元数据 19 项
+              </text>
+            </g>
+
+            <path
+              d="M318 214l6 6 11-12"
+              fill="none"
+              stroke="rgba(82,196,26,.8)"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <text x="344" y="220" fill="rgba(255,255,255,.5)" font-size="11">
+              真实性 / 完整性 / 可用性 / 安全性
+            </text>
+          </svg>
+        </div>
+
+        <div class="brand-foot">
+          <span>示例市国家综合档案馆</span>
+          <span>原型 v0.1 · 仅用于交互评审</span>
+        </div>
+      </section>
+
+      <section class="login-panel" aria-labelledby="loginTitle">
+        <div class="login-mobile-brand">
+          <span class="brand-mark" aria-hidden="true">
+            <svg class="icon"><use href="#icon-archive" /></svg>
+          </span>
+          <span class="brand-name">
+            <strong>网页采集归档系统</strong>
+            <span>WEB ARCHIVE SYSTEM</span>
+          </span>
+        </div>
+
+        <div class="login-card">
+          <h1 class="login-title" id="loginTitle">登录</h1>
+          <p class="login-sub">使用档案馆分配的用户名和密码进入系统</p>
+
+          <form class="login-form" id="loginForm" novalidate>
+            <div class="field" id="usernameField">
+              <label class="field-label" for="username">
+                用户名 <span class="required" aria-hidden="true">*</span>
+              </label>
+              <div class="control control--icon">
+                <svg class="icon control-icon" aria-hidden="true">
+                  <use href="#icon-user" />
+                </svg>
+                <input
+                  class="input input--lg"
+                  id="username"
+                  name="username"
+                  type="text"
+                  autocomplete="username"
+                  spellcheck="false"
+                  placeholder="请输入用户名"
+                  aria-required="true"
+                  aria-describedby="usernameError"
+                />
+              </div>
+              <p class="field-error" id="usernameError" hidden>
+                <svg class="icon icon--sm" aria-hidden="true">
+                  <use href="#icon-alert-triangle" />
+                </svg>
+                请输入用户名
+              </p>
+            </div>
+
+            <div class="field" id="passwordField">
+              <label class="field-label" for="password">
+                密码 <span class="required" aria-hidden="true">*</span>
+              </label>
+              <div class="control control--icon control--action">
+                <svg class="icon control-icon" aria-hidden="true">
+                  <use href="#icon-lock" />
+                </svg>
+                <input
+                  class="input input--lg"
+                  id="password"
+                  name="password"
+                  type="password"
+                  autocomplete="current-password"
+                  placeholder="请输入密码"
+                  aria-required="true"
+                  aria-describedby="passwordError"
+                />
+                <button
+                  type="button"
+                  class="control-action"
+                  id="togglePassword"
+                  aria-label="显示密码"
+                  aria-pressed="false"
+                >
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#icon-eye" id="passwordIcon" />
+                  </svg>
+                </button>
+              </div>
+              <p class="field-error" id="passwordError" hidden>
+                <svg class="icon icon--sm" aria-hidden="true">
+                  <use href="#icon-alert-triangle" />
+                </svg>
+                请输入密码
+              </p>
+            </div>
+
+            <div class="login-row">
+              <label class="checkbox">
+                <input type="checkbox" id="remember" />
+                <span>记住用户名</span>
+              </label>
+              <a href="#forgot" id="forgotLink">忘记密码？</a>
+            </div>
+
+            <p class="login-hint" id="loginHint" role="alert" hidden>
+              <svg class="icon icon--sm" aria-hidden="true">
+                <use href="#icon-alert-triangle" />
+              </svg>
+              <span id="loginHintText">请输入用户名和密码后再登录。</span>
+            </p>
+
+            <button
+              class="btn btn--primary btn--lg btn--block login-submit"
+              type="submit"
+              id="loginSubmit"
+            >
+              <svg class="icon" id="loginSpinner" aria-hidden="true" hidden>
+                <use href="#icon-refresh" />
+              </svg>
+              <span id="loginSubmitText">登 录</span>
+            </button>
+          </form>
+
+          <div class="demo-box">
+            <div class="demo-box-head">
+              <span>原型演示账号（点击填入）</span>
+              <span>密码不校验</span>
+            </div>
+            <div class="demo-accounts">
+              <button
+                type="button"
+                class="demo-account"
+                data-account="archive_admin"
+                data-password="Archive@2026"
+              >
+                <span>
+                  <span class="demo-account-role">档案馆工作人员</span>
+                  <span class="demo-account-name">archive_admin</span>
+                </span>
+                <svg class="icon icon--sm" aria-hidden="true">
+                  <use href="#icon-chevron-right" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                class="demo-account"
+                data-account="site_admin"
+                data-password="Site@2026"
+              >
+                <span>
+                  <span class="demo-account-role">主办单位系统管理员</span>
+                  <span class="demo-account-name">site_admin</span>
+                </span>
+                <svg class="icon icon--sm" aria-hidden="true">
+                  <use href="#icon-chevron-right" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                class="demo-account"
+                data-account="site_clerk"
+                data-password="Clerk@2026"
+              >
+                <span>
+                  <span class="demo-account-role">主办单位档案员</span>
+                  <span class="demo-account-name">site_clerk</span>
+                </span>
+                <svg class="icon icon--sm" aria-hidden="true">
+                  <use href="#icon-chevron-right" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <p class="login-foot">
+          本页面为交互原型，登录仅在前端模拟：不连接后端、不校验密码，
+          账号对应的角色决定工作台可见的菜单与数据范围。<br />
+          建议使用 Chrome / Edge 最新版访问。
+        </p>
+      </section>
+    </main>
+
+    <div class="toast-stack" id="toastStack" aria-live="polite"></div>
+
+    <script src="assets/js/data.js" defer></script>
+    <script src="assets/js/login.js" defer></script>
+  </body>
+</html>
